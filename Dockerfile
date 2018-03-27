@@ -1,5 +1,5 @@
 FROM alpine:edge
-ENTRYPOINT ["/bin/matterbridge"]
+#ENTRYPOINT ["/bin/matterbridge"]
 
 
 
