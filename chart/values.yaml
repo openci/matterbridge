@@ -10,17 +10,17 @@ image:
     - name: gitlab-registry
 application:
   track: stable
-# tier: web
-# service:
-#   enabled: true
-#   name: web
-#   type: ClusterIP
-  # url: http://my.host.com/
-#  externalPort: 5000
-#  internalPort: 5000
-#postgresql:
-#  enabled: true
-#resources:
+  tier: web
+service:
+  enabled: true
+  name: web
+  type: ClusterIP
+  url: http://my.host.com/
+  externalPort: 5000
+  internalPort: 5000
+postgresql:
+  enabled: true
+resources:
 #  limits:
 #    cpu: 100m
 #    memory: 128Mi
