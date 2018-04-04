@@ -297,11 +297,27 @@ production:
       --set application.database_url="$DATABASE_URL" \
       --set service.url="$CI_ENVIRONMENT_URL" \
       --set replicaCount="$replicas" \
-      --set postgresql.enabled="$postgres_enabled" \
-      --set postgresql.nameOverride="postgres" \
-      --set postgresql.postgresUser="$POSTGRES_USER" \
-      --set postgresql.postgresPassword="$POSTGRES_PASSWORD" \
-      --set postgresql.postgresDatabase="$POSTGRES_DB" \
+      --values chart/values-app-config.yaml \
+      --set irc.enabled="$MB_IRC_ENABLED" \
+      --set irc.server="$MB_IRC_SERVER" \
+      --set irc.channel="$MB_IRC_CHANNEL" \
+      --set irc.nickname="$MB_IRC_NICKNAME" \
+      --set mattermost.enabled="$MB_MATTERMOST_ENABLED" \
+      --set mattermost.server="$MB_MATTERMOST_SERVER" \
+      --set mattermost.team="$MB_MATTERMOST_TEAM" \
+      --set mattermost.channel="$MB_MATTERMOST_CHANNEL" \
+      --set mattermost.login="$MB_MATTERMOST_LOGIN" \
+      --set mattermost.password="$MB_MATTERMOST_PASSWORD" \
+      --set gitter.enabled="$MB_GITTER_ENABLED" \
+      --set gitter.token="$MB_GITTER_TOKEN" \
+      --set gitter.channel="$MB_GITTER_CHANNEL" \
+      --set slack.enabled="$MB_SLACK_ENABLED" \
+      --set slack.token="$MB_SLACK_TOKEN" \
+      --set slack.channel="$MB_SLACK_CHANNEL" \
+      --set slack.icon="$MB_SLACK_ICON" \
+      --set telegram.enabled="$MB_TELEGRAM_ENABLED" \
+      --set telegram.token="$MB_TELEGRAM_TOKEN" \
+      --set telegram.channel="$MB_TELEGRAM_CHANNEL" \
       --namespace="$KUBE_NAMESPACE" \
       --version="$CI_PIPELINE_ID-$CI_JOB_ID" \
       "$name" \
