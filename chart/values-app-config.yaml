@@ -1,0 +1,59 @@
+general:
+  #RemoteNickFormat defines how remote users appear on this bridge
+  #The string "{NICK}" (case sensitive) will be replaced by the actual nick / username.
+  #The string "{BRIDGE}" (case sensitive) will be replaced by the sending bridge
+  #The string "{LABEL}" (case sensitive) will be replaced by label= field of the sending bridge
+  #The string "{PROTOCOL}" (case sensitive) will be replaced by the protocol used by the bridge
+  #The string "{NOPINGNICK}" (case sensitive) will be replaced by the actual nick / username, but with a ZWSP inside the nick, so the irc user with the same nick won't get pinged. See https://github.com/42wim/matterbridge/issues/175 for more information
+  #OPTIONAL (default empty)
+  remote_nick_format: "[{PROTOCOL}-{BRIDGE}] <{NICK}> "
+gateway:
+  name: openci-everywhere
+irc:
+  enabled: false
+  name: "bridge"
+  #server: required parameter
+  #channel: required parameter
+  #nickname: required parameter
+  password: ""
+  # space seperated list of nicknames to ignore
+  ignore_nicks: ""
+  ignore_messages: "^~~"
+  use_tls: false
+  use_sasl: false
+  skip_tls_verify: false
+  nickserv_nick: ""
+  nickserv_password: ""
+  label: ""
+mattermost:
+  enabled: false
+  name: "bridge"
+  # server: required parameter
+  # team: required parameter
+  # channel: required parameter
+  # login: required parameter
+  # password: required parameter
+  edit_disable: false
+  label: ""
+gitter:
+  # required fields: token
+  enabled: false
+  name: bridge
+  # channel: required parameter "user/room"
+  # token: required parameter
+  label: ""
+slack:
+  enabled: false
+  name: bridge
+  # token: required parameter
+  # channel: required parameter
+  icon: "" # https://avatars1.githubusercontent.com/u/34388264?s=400&u=7c61d8f4fbd00f0cf6d677596226dbe199a0dd62&v=4
+  show_topic_change: true
+  label: ""
+telegram:
+  enabled: false
+  name: bridge
+  # token: required parameter 569800712:AAFv5arxXFNrBJHaD5NK5mF8QxIjZzlJk_k
+  # channel: required parameter "-130683565"
+  edit_disable: false
+  label: ""

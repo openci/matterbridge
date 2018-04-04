@@ -18,9 +18,16 @@ spec:
     spec:
       imagePullSecrets:
 {{ toYaml .Values.image.secrets | indent 10 }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: matterbridge-config
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/matterbridge
         resources:
 {{ toYaml .Values.resources | indent 12 }}

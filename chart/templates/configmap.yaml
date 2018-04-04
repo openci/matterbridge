@@ -1,0 +1,105 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: matterbridge-config
+  namespace: default
+data:
+  matterbridge.conf: |
+    # Settings here are defaults that each protocol can override
+    [general]
+    RemoteNickFormat="{{ .Values.general.remote_nick_format }}"
+    # media server stuff would be nice
+
+    {{- if eq .Values.irc.enabled true}}
+    {{- with .Values.irc }}
+    [irc]
+    [irc.{{ .name }}]
+    Server="{{ .server }}"
+    Nick="{{ .nickname }}"
+    Password="{{ .password }}"
+    # space seperated list of nicknames to ignore
+    IgnoreNicks="{{ .ignore_nicks }}"
+    # space seperated list of patterns of messages to ignore
+    IgnoreMessages="{{ .ignore_messages }}"
+    UseTLS={{ .use_tls }}
+    UseSASL={{ .use_sasl }}
+    SkipTLSVerify={{ .skip_tls_verify }}
+    NickServNick="{{ .nickserv_nick }}"
+    NickServPassword="{{ .nickserv_password }}"
+    Label="{{ default "" .label }}"
+    {{- end }}
+    {{- end }}
+
+    {{- if eq .Values.mattermost.enabled true}}
+    {{- with .Values.mattermost }}
+    [mattermost]
+    [mattermost.{{ .name }}]
+    Server="{{ .server }}"
+    Team="{{ .team }}"
+    Login="{{ .login }}"
+    Password="{{ .password }}"
+    EditDisable={{ .edit_disable }}
+    EditSuffix=" (edited)"
+    Label="{{ default "" .label }}"
+    {{- end }}
+    {{- end }}
+
+    {{- if eq .Values.gitter.enabled true}}
+    {{- with .Values.gitter }}
+    [gitter]
+    [gitter.{{ .name }}]
+    Token="{{ .token }}"
+    Label="{{ default "" .label }}"
+    {{- end }}
+    {{- end }}
+
+    {{- if eq .Values.slack.enabled true}}
+    {{- with .Values.slack }}
+    [slack]
+    [slack.{{ .name }}]
+    Token="{{ .token }}"
+    IconURL="{{ .icon }}"
+    ShowTopicChange={{ .show_topic_change }}
+    Label="{{ default "" .label }}"
+    {{- end }}
+    {{- end }}
+
+    {{- if eq .Values.telegram.enabled true}}
+    {{- with .Values.telegram }}
+    [telegram]
+    [telegram.{{ .name }}]
+    Token="{{ .token }}"
+    EditDisable={{ .edit_disable }}
+    EditSuffix=" (edited)"
+    Label="{{ default "" .label }}"
+    {{- end }}
+    {{- end }}
+
+    [[gateway]]
+    name="{{ .Values.gateway.name }}"
+    enable=true
+    {{- if eq .Values.irc.enabled true}}
+    [[gateway.inout]]
+    account="irc.{{ .Values.irc.name }}"
+    channel="{{ .Values.irc.channel }}"
+    {{- end }}
+    {{- if eq .Values.mattermost.enabled true}}
+    [[gateway.inout]]
+    account="mattermost.{{ .Values.mattermost.name }}"
+    channel="{{ .Values.mattermost.channel }}"
+    {{- end }}
+    {{- if eq .Values.slack.enabled true}}
+    [[gateway.inout]]
+    account="slack.{{ .Values.slack.name }}"
+    channel="{{ .Values.slack.channel }}"
+    {{- end }}
+    {{- if eq .Values.gitter.enabled true}}
+    [[gateway.inout]]
+    account="gitter.{{ .Values.gitter.name }}"
+    channel="{{ .Values.gitter.channel }}"
+    {{- end }}
+    {{- if eq .Values.telegram.enabled true}}
+    [[gateway.inout]]
+    account="telegram.{{ .Values.telegram.name }}"
+    channel="{{ .Values.telegram.channel }}"
+    {{- end }}
